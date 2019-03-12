@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+
+  civicrm:
+    build: .
+    environment:
+      CIVI_DB_HOST: mysql
+      CIVI_DB_PASSWORD: dummypassword
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - buildkit:/buildkit # have to use named volume instead of bind mount, as the image contents in /buildkit are not copied to initially empty bind mount volume
+    restart: unless-stopped
+
+  mysql:
+    image: registry.access.redhat.com/rhscl/mysql-57-rhel7:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: dummypassword
+    volumes:
+      - ./vol-mysql-data:/var/lib/mysql/data
+    restart: unless-stopped
+
+volumes:
+  buildkit:

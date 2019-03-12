@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+echoerr() { echo "$@" 1>&2; }
+fail() { echoerr $1; exit 1; }
+ERR_CIVI="Error configuring civicrm"
+ERR_EXEC="Error executing civicrm"
+
+# Add user to passwd
+if ! whoami &> /dev/null; then
+  if [ -w /etc/passwd ]; then
+    echo "${USER_NAME:-default}:x:$(id -u):0:${USER_NAME:-default} user:${HOME}:/sbin/nologin" >> /etc/passwd
+  fi
+fi
+
+envsubst "$VARIABLES_CIVI_CONF" < "$SRC_CIVI_CONF" > "$FILE_CIVI_CONF"                            || fail "$ERR_CIVI"
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+exec "$@"                                                                                         || fail "$ERR_EXEC"
