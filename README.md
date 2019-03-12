@@ -22,4 +22,4 @@ Create a new CiviCRM installation (see [civibuild documentation](https://docs.ci
 
 Fix the file permissions so that the container can be ran as non-root user (however these creation steps need sudo privileges in the `civirm` container):
 
-`docker-compose exec -u buildkit civicrm bash -c "sudo chgrp -R 0 /buildkit && sudo chmod -R g=u /buildkit"``
+`docker-compose exec -u buildkit civicrm bash -c "sudo chgrp -R 0 /buildkit && sudo chmod -R g=u /buildkit"`
