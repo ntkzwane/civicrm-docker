@@ -120,7 +120,10 @@ COPY apache24-vhost.php /buildkit/build/.amp/apache24-vhost.php
 
 ENV VARIABLES_CIVI_CONF \
         "\$CIVI_DB_HOST \
-        \$CIVI_DB_PASSWORD"
+        \$CIVI_DB_USER \
+        \$CIVI_DB_DATABASE \
+        \$CIVI_DB_PORT \
+        \$PORT"
 
 ENV SRC_CIVI_CONF /buildkit/.amp/services.yml.source
 ENV FILE_CIVI_CONF /buildkit/.amp/services.yml

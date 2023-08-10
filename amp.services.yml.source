@@ -1,12 +1,12 @@
 parameters:
     version: 2
     db_type: mysql_dsn
-    mysql_dsn: 'mysql://root:$CIVI_DB_PASSWORD@$CIVI_DB_HOST:3306'
+    mysql_dsn: 'mysql://$CIVI_DB_USER:$CIVI_DB_PASSWORD@$CIVI_DB_HOST:$CIVI_DB_PORT'
     perm_type: none
     perm_user: www-data
     hosts_type: file
     httpd_type: apache24
     httpd_visibility: all
-    httpd_shared_ports: '8080'
+    httpd_shared_ports: '$PORT'
     httpd_restart_command: 'sudo /usr/sbin/apachectl graceful'
 services: {  }
