@@ -92,7 +92,7 @@ ENV PATH="/buildkit/bin:${PATH}"
 
 RUN git clone https://github.com/civicrm/civicrm-buildkit.git buildkit-tmp
 
-RUN mv buildkit-tmp/* buildkit-tmp/.git* .
+RUN mv buildkit-tmp/* buildkit-tmp/.git* buildkit-tmp/.loco .
 
 RUN rmdir buildkit-tmp
 
