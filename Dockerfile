@@ -23,6 +23,9 @@ FROM php:7.2-apache-stretch
 # gettext-base is required for envsubst
 # gnupg is required for apt-key
 
+RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' \
+           -e 's|security.debian.org|archive.debian.org/|g' \
+           -e '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   gnupg \
