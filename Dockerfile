@@ -1,4 +1,4 @@
-FROM php:7.2-apache-stretch
+FROM php:8.2-apache-bullseye
 
 # Install apt packages
 #
@@ -23,13 +23,10 @@ FROM php:7.2-apache-stretch
 # gettext-base is required for envsubst
 # gnupg is required for apt-key
 
-RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' \
-           -e 's|security.debian.org|archive.debian.org/|g' \
-           -e '/stretch-updates/d' /etc/apt/sources.list
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   gnupg \
-  && curl -sL https://deb.nodesource.com/setup_9.x | bash \
+  && curl -sL https://deb.nodesource.com/setup_16.x | bash \
   && apt-get install -y --no-install-recommends \
   gettext-base \
   git \
@@ -40,11 +37,12 @@ RUN apt-get update \
   libmagickwand-dev \
   libpng-dev \
   libxml2-dev \
-  mysql-client \
+  default-mysql-client \
   nodejs \
   sudo \
   unzip \
   zip \
+  libzip-dev \
   zlib1g-dev \
   && rm -r /var/lib/apt/lists/*
 
@@ -106,8 +104,6 @@ RUN mkdir .composer
 RUN mkdir .drush
 
 RUN mkdir .npm
-
-RUN rm composer.lock
 
 RUN civi-download-tools
 
